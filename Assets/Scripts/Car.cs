@@ -12,13 +12,30 @@ public class Car : MonoBehaviour
     private float movementSpeed = 5.0f;
 
     Vector3 futurePos = Vector3.zero;
+    bool crossedFinishLine = false;
 
+    private FinishLine finishLine;
+
+
+    // Getters and setters
     public void setPosition(Vector3 position)
     {
         transform.position = position;
+    
+        if ((transform.position.x >= finishLine.getXPosition()) && crossedFinishLine == false)
+        {
+            print("Reached Finish Line");
+            crossedFinishLine = true;
+        }
     }
 
 
+
+    // Called before start
+    private void Awake()
+    {
+        finishLine = FindObjectOfType<FinishLine>();
+    }
 
     // Use this for initialization
     void Start()

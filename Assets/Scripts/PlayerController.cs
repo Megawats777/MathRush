@@ -123,11 +123,10 @@ public class PlayerController : MonoBehaviour
             if (answerNum == questionManager.getSelectedQuestion().getAnswer())
             {
                 controlledCar.move();                
-                print("Correct Answer!");
             }
             else
             {
-                print("Incorrect Answer!");
+                
             }
         
         }
