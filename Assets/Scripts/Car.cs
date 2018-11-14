@@ -5,17 +5,19 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
 
-    [SerializeField]
-    private float stepInterval = 1.0f;
+    [SerializeField]    
+    private CarMovementProfile movementProfile;
 
-    [SerializeField]
+    private float stepInterval = 1.0f;
     private float movementSpeed = 5.0f;
 
-    Vector3 futurePos = Vector3.zero;
-    bool crossedFinishLine = false;
+    private Vector3 futurePos = Vector3.zero;
+    private bool crossedFinishLine = false;
 
     private FinishLine finishLine;
 
+    [SerializeField]
+    private ControllerBase owningController = null;
 
     // Getters and setters
     public void setPosition(Vector3 position)
@@ -40,6 +42,22 @@ public class Car : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (movementProfile)
+        {
+            stepInterval = movementProfile.getStepInterval();
+            movementSpeed = movementProfile.getMovementSpeed();
+        }
+
+        if (!owningController)
+        {
+            Debug.LogError("No Controller assigned for car : " + gameObject.name);
+        }
+
+        else
+        {
+            Debug.Log("Controller assigned to : " + gameObject.name);
+        }
+
         futurePos = transform.position;
     }
 
