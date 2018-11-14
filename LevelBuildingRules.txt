@@ -1,0 +1,10 @@
+Placing Objects
+
+	- Cars
+	
+		- The X value of the placement must be an even number
+
+	
+	- FinishLine
+
+		- The X value of the placement must be an even number

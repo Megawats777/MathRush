@@ -21,7 +21,7 @@ public class Car : MonoBehaviour
     public void setPosition(Vector3 position)
     {
         transform.position = position;
-    
+
         if ((transform.position.x >= finishLine.getXPosition()) && crossedFinishLine == false)
         {
             print("Reached Finish Line");
