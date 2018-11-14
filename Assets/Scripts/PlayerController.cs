@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Text inputText;
     private string answerString = "";
     private int answerNum = 0;
 
+    private Text inputText;
     private QuestionManager questionManager;
+    private Car controlledCar;
 
     // Called before start
     private void Awake()
     {
         inputText = GameObject.FindGameObjectWithTag("PlayerInputText").GetComponent<Text>();
         questionManager = FindObjectOfType<QuestionManager>();
+        controlledCar = GameObject.FindGameObjectWithTag("PlayerCar").GetComponent<Car>();
     }
 
 
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
             // Check if the answer is correct
             if (answerNum == questionManager.getSelectedQuestion().getAnswer())
             {
+                controlledCar.move();                
                 print("Correct Answer!");
             }
             else
