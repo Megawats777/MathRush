@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            removeFromAnwser();
+            removeFromAnswer();
         }
 
 		else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Remove from answer
-    private void removeFromAnwser()
+    private void removeFromAnswer()
     {
         if (answerString.Length > 0)
         {
@@ -116,8 +116,18 @@ public class PlayerController : MonoBehaviour
 		if (string.IsNullOrEmpty(answerString) == false)
 		{
 			answerNum = int.Parse(answerString);
-		    print("Confirmed Answer : " + answerNum);
-		}
+		
+            // Check if the answer is correct
+            if (answerNum == questionManager.getSelectedQuestion().getAnswer())
+            {
+                print("Correct Answer!");
+            }
+            else
+            {
+                print("Incorrect Answer!");
+            }
+        
+        }
 		else
 		{
 			print("No answer entered");

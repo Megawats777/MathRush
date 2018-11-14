@@ -12,6 +12,13 @@ public class QuestionManager : MonoBehaviour
 	private QuestionProfile selectedQuestion = null;
 	private Text questionText;
 
+	// Getters and setters
+	public QuestionProfile getSelectedQuestion()
+	{
+		return selectedQuestion;
+	}
+
+
 	// Called before start
 	private void Awake()
 	{
