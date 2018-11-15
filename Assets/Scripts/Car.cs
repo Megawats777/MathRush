@@ -5,7 +5,7 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
 
-    [SerializeField]    
+    [SerializeField]
     private CarMovementProfile movementProfile;
 
     private float stepInterval = 1.0f;
@@ -16,27 +16,86 @@ public class Car : MonoBehaviour
 
     private FinishLine finishLine;
 
-    [SerializeField]
+
     private ControllerBase owningController = null;
+    private Car enemyCar = null;
+
 
     // Getters and setters
     public void setPosition(Vector3 position)
     {
         transform.position = position;
 
+
+        // If this car crossed the finish line
         if ((transform.position.x >= finishLine.getXPosition()) && crossedFinishLine == false)
         {
+
             print("Reached Finish Line");
+
+
+            // If the owning controller is Player 1
+            if (owningController.getPlayerId() == 1)
+            {
+                PlayerController pc = (PlayerController)owningController;
+                pc.setIsInputEnabled(false);
+            
+                // If this car crossed the finish line first
+                if (enemyCar.getHasCrossedFinishLine() == false)
+                {
+                    print("Player 1 Wins!");
+                }
+            }
+
+            // If the owning controller is not Player 1
+            else
+            {
+                EnemyController ec = (EnemyController)owningController;
+                ec.stopMovingAssignedCar();
+
+                // If this car crossed the finish line first
+                if (enemyCar.getHasCrossedFinishLine() == false)
+                {
+                    print("Player " + ec.getPlayerId() + " wins");
+                }
+            }
+
             crossedFinishLine = true;
         }
     }
 
+
+    public void setOwningController(ControllerBase controller)
+    {
+        owningController = controller;
+    }
+
+
+    public bool getHasCrossedFinishLine()
+    {
+        return crossedFinishLine;
+    }
 
 
     // Called before start
     private void Awake()
     {
         finishLine = FindObjectOfType<FinishLine>();
+
+
+        // Get the enemy car 
+        foreach (Car c in FindObjectsOfType<Car>())
+        {
+            if (c)
+            {
+                // If the current car in the list does not have the same tag
+                // as this car then mark it as the enemy car
+                if (c.tag != this.tag)
+                {
+                    enemyCar = c;
+                }
+            }
+        }
     }
 
     // Use this for initialization

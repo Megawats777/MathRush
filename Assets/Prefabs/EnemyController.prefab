@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 2
+  initialMoveCommandDelay: 0.7
+  moveCommandInterval: 2
