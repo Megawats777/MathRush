@@ -8,6 +8,8 @@ TagManager:
   - QuestionText
   - PlayerCar
   - EnemyCar
+  - Button-Correct
+  - Button-Incorrect
   layers:
   - Default
   - TransparentFX

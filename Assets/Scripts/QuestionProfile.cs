@@ -2,26 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName="QuestionProfile", menuName="QuestionProfile")]
+[CreateAssetMenu(fileName = "QuestionProfile", menuName = "QuestionProfile")]
 public class QuestionProfile : ScriptableObject
 {
 
-	// Variables
-	[SerializeField]
-	private string equation = "1+1";
+    // Equation field and property
+    [SerializeField]
+    private string equation = "1+1";
+    [HideInInspector]
+    public string Equation
+    {
+        get
+        {
+            return equation;
+        }
+    }
 
+	// IsCorrect field and property
 	[SerializeField]
-	private float answer = 2;
-    
-
-	// Getter and setters
-	public string getEquation()
+	private bool isCorrect = false;
+	[HideInInspector]
+	public bool IsCorrect
 	{
-		return equation;
+		get 
+		{
+			return isCorrect;
+		}
 	}
 
-	public float getAnswer()
-	{
-		return answer;
-	}
 }

@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2af0a3d5fb1b8428353b17a431c314, type: 3}
   m_Name: QP_TestQuestion_04
   m_EditorClassIdentifier: 
-  equation: (8 * 5) + 5
-  answer: 45
+  equation: (8 * 5) + 5 = 50
+  isCorrect: 0

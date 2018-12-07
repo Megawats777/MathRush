@@ -10,7 +10,6 @@ public class QuestionManager : MonoBehaviour
 
 	private QuestionProfile previousQuestion = null;
 	private QuestionProfile selectedQuestion = null;
-	private Text questionText;
 
 	// Getters and setters
 	public QuestionProfile getSelectedQuestion()
@@ -22,7 +21,7 @@ public class QuestionManager : MonoBehaviour
 	// Called before start
 	private void Awake()
 	{
-		questionText = GameObject.FindGameObjectWithTag("QuestionText").GetComponent<Text>();
+
 	}
 
     // Use this for initialization
@@ -46,8 +45,7 @@ public class QuestionManager : MonoBehaviour
 		{
 			selectedQuestion = questionList[Random.Range(0, questionList.Length)];
 		} while (selectedQuestion == previousQuestion);
-
+		
 		previousQuestion = selectedQuestion;
-		questionText.text = selectedQuestion.getEquation();
 	}
 }
