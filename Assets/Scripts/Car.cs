@@ -38,7 +38,7 @@ public class Car : MonoBehaviour
             if (owningController.getPlayerId() == 1)
             {
                 PlayerController pc = (PlayerController)owningController;
-                pc.setIsInputEnabled(false);
+                pc.InputEnabled = false;
             
                 // If this car crossed the finish line first
                 if (enemyCar.getHasCrossedFinishLine() == false)
