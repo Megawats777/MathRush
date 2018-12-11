@@ -38,7 +38,7 @@ public class EnemyController : ControllerBase
     // Move assigned car
     private void moveAssignedCar()
     {
-        controlledCar.move();
+        controlledCar.move(true);
     }
 
     // Start moving assigned car

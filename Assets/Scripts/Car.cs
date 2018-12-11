@@ -11,6 +11,7 @@ public class Car : MonoBehaviour
     private float stepInterval = 1.0f;
     private float movementSpeed = 5.0f;
 
+    private Vector3 originalPosition;
     private Vector3 futurePos = Vector3.zero;
     private bool crossedFinishLine = false;
 
@@ -22,9 +23,11 @@ public class Car : MonoBehaviour
 
 
     // Getters and setters
-    public void setPosition(Vector3 position)
+    public void setPosition(Vector3 newPosition)
     {
-        transform.position = position;
+        newPosition.x = Mathf.Clamp(newPosition.x, originalPosition.x, 999999);
+
+        transform.position = newPosition;
 
 
         // If this car crossed the finish line
@@ -101,6 +104,8 @@ public class Car : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        originalPosition = transform.position;
+
         if (movementProfile)
         {
             stepInterval = movementProfile.getStepInterval();
@@ -127,9 +132,16 @@ public class Car : MonoBehaviour
     }
 
     // Move this car
-    public void move()
+    // forward = true : move the car forward
+    // forward = false : move the car backwards
+    public void move(bool forward)
     {
-        futurePos.x += stepInterval;
+        if (forward)
+            futurePos.x += stepInterval;
+        else if (forward == false)
+        {
+            futurePos.x -= stepInterval;
+        }
     }
 
 

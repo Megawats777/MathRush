@@ -89,13 +89,14 @@ public class PlayerController : ControllerBase
         if (chosenAnswer == questionManager.SelectedQuestion.IsCorrect)
         {
             print("Answer Correct!");
-            controlledCar.move();
+            controlledCar.move(true);
         }
 
         // If the chosenAnswer is wrong
         else
         {
             print("Answer InCorrect");
+            controlledCar.move(false);
         }
 
         questionManager.selectQuestion();
