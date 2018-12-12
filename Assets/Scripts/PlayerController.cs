@@ -50,7 +50,7 @@ public class PlayerController : ControllerBase
     // Use this for initialization
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -66,21 +66,24 @@ public class PlayerController : ControllerBase
                 answerQuestion(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            controlledCar.move(false);
+        if (Application.isEditor)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                controlledCar.move(false);
 
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-            controlledCar.move(true);
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                controlledCar.move(true);
+        }
     }
 
     // Assign answer actions to buttons
     private void assignButtonAnswerActions(Button bt, bool chosenAnswer)
     {
-        bt.onClick.AddListener(() => {
-
+        bt.onClick.AddListener(() =>
+        {
             if (inputEnabled)
                 answerQuestion(chosenAnswer);
-        
+
             EventSystem.current.SetSelectedGameObject(null);
         });
     }
