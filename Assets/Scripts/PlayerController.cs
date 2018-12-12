@@ -42,8 +42,8 @@ public class PlayerController : ControllerBase
 
 
         // Assign actions to buttons
-        assignButtonActions(buttonCorrect, true);
-        assignButtonActions(buttonIncorrect, false);
+        assignButtonAnswerActions(buttonCorrect, true);
+        assignButtonAnswerActions(buttonIncorrect, false);
     }
 
 
@@ -65,10 +65,16 @@ public class PlayerController : ControllerBase
             else if (Input.GetKeyDown(KeyCode.D))
                 answerQuestion(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            controlledCar.move(false);
+
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+            controlledCar.move(true);
     }
 
-    // Assign actions to buttons
-    private void assignButtonActions(Button bt, bool chosenAnswer)
+    // Assign answer actions to buttons
+    private void assignButtonAnswerActions(Button bt, bool chosenAnswer)
     {
         bt.onClick.AddListener(() => {
 

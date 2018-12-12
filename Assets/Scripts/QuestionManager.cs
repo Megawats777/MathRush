@@ -49,6 +49,7 @@ public class QuestionManager : MonoBehaviour
             selectedQuestion = questionList[Random.Range(0, questionList.Length)];
         } while (selectedQuestion == previousQuestion);
 
+        print("Selected Question Answer : " + ((selectedQuestion.IsCorrect ? "Correct" : "Incorrect")));
 		equationText.text = selectedQuestion.Equation;
         previousQuestion = selectedQuestion;
     }

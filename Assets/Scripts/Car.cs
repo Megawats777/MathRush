@@ -26,7 +26,6 @@ public class Car : MonoBehaviour
     public void setPosition(Vector3 newPosition)
     {
         newPosition.x = Mathf.Clamp(newPosition.x, originalPosition.x, 999999);
-
         transform.position = newPosition;
 
 
@@ -42,7 +41,7 @@ public class Car : MonoBehaviour
             {
                 PlayerController pc = (PlayerController)owningController;
                 pc.InputEnabled = false;
-            
+
                 // If this car crossed the finish line first
                 if (enemyCar.getHasCrossedFinishLine() == false)
                 {
@@ -89,14 +88,11 @@ public class Car : MonoBehaviour
         // Get the enemy car 
         foreach (Car c in FindObjectsOfType<Car>())
         {
-            if (c)
+            if (c && c.tag != this.tag)
             {
                 // If the current car in the list does not have the same tag
                 // as this car then mark it as the enemy car
-                if (c.tag != this.tag)
-                {
-                    enemyCar = c;
-                }
+                enemyCar = c;
             }
         }
     }
@@ -138,9 +134,10 @@ public class Car : MonoBehaviour
     {
         if (forward)
             futurePos.x += stepInterval;
-        else if (forward == false)
+        else
         {
             futurePos.x -= stepInterval;
+            futurePos.x = Mathf.Clamp(futurePos.x, originalPosition.x, 999999);
         }
     }
 
