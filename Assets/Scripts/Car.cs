@@ -32,21 +32,27 @@ public class Car : MonoBehaviour
         // If this car crossed the finish line
         if ((transform.position.x >= finishLine.getXPosition()) && crossedFinishLine == false)
         {
-
             print("Reached Finish Line");
 
 
             // If the owning controller is Player 1
             if (owningController.getPlayerId() == 1)
             {
+                bool playerOneWins = false;
+
                 PlayerController pc = (PlayerController)owningController;
                 pc.InputEnabled = false;
+
+                FindObjectOfType<GameplayUi>().hide();
 
                 // If this car crossed the finish line first
                 if (enemyCar.getHasCrossedFinishLine() == false)
                 {
+                    playerOneWins = true;
                     print("Player 1 Wins!");
                 }
+
+                FindObjectOfType<GameOverUi>().show(playerOneWins);
             }
 
             // If the owning controller is not Player 1
