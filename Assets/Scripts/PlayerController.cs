@@ -61,9 +61,11 @@ public class PlayerController : ControllerBase
         {
             if (Input.GetKeyDown(KeyCode.A))
                 answerQuestion(true);
+                
 
             else if (Input.GetKeyDown(KeyCode.D))
                 answerQuestion(false);
+                
         }
 
         if (Application.isEditor)

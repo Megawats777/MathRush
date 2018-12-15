@@ -25,7 +25,7 @@ public class Car : MonoBehaviour
     // Getters and setters
     public void setPosition(Vector3 newPosition)
     {
-        newPosition.x = Mathf.Clamp(newPosition.x, originalPosition.x, 999999);
+        //newPosition.x = Mathf.Clamp(newPosition.x, originalPosition.x, 999999);
         transform.position = newPosition;
 
 
@@ -143,7 +143,7 @@ public class Car : MonoBehaviour
         else
         {
             futurePos.x -= stepInterval;
-            futurePos.x = Mathf.Clamp(futurePos.x, originalPosition.x, 999999);
+            //futurePos.x = Mathf.Clamp(futurePos.x, originalPosition.x, 999999);
         }
     }
 
