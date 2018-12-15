@@ -8,8 +8,8 @@ public class Car : MonoBehaviour
     [SerializeField]
     private CarMovementProfile movementProfile;
 
-    private float stepInterval = 1.0f;
-    private float movementSpeed = 5.0f;
+    private float animDuration = 0.01f;
+
 
     private Vector3 originalPosition;
     private Vector3 futurePos = Vector3.zero;
@@ -25,51 +25,7 @@ public class Car : MonoBehaviour
     // Getters and setters
     public void setPosition(Vector3 newPosition)
     {
-        //newPosition.x = Mathf.Clamp(newPosition.x, originalPosition.x, 999999);
-        transform.position = newPosition;
-
-
-        // If this car crossed the finish line
-        if ((transform.position.x >= finishLine.getXPosition()) && crossedFinishLine == false)
-        {
-            print("Reached Finish Line");
-
-
-            // If the owning controller is Player 1
-            if (owningController.getPlayerId() == 1)
-            {
-                bool playerOneWins = false;
-
-                PlayerController pc = (PlayerController)owningController;
-                pc.InputEnabled = false;
-
-                FindObjectOfType<GameplayUi>().hide();
-
-                // If this car crossed the finish line first
-                if (enemyCar.getHasCrossedFinishLine() == false)
-                {
-                    playerOneWins = true;
-                    print("Player 1 Wins!");
-                }
-
-                FindObjectOfType<GameOverUi>().show(playerOneWins);
-            }
-
-            // If the owning controller is not Player 1
-            else
-            {
-                EnemyController ec = (EnemyController)owningController;
-                ec.stopMovingAssignedCar();
-
-                // If this car crossed the finish line first
-                if (enemyCar.getHasCrossedFinishLine() == false)
-                {
-                    print("Player " + ec.getPlayerId() + " wins");
-                }
-            }
-
-            crossedFinishLine = true;
-        }
+        
     }
 
 
@@ -107,12 +63,7 @@ public class Car : MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
-
-        if (movementProfile)
-        {
-            stepInterval = movementProfile.getStepInterval();
-            movementSpeed = movementProfile.getMovementSpeed();
-        }
+        futurePos = transform.position;
 
         if (!owningController)
         {
@@ -124,13 +75,12 @@ public class Car : MonoBehaviour
             Debug.Log("Controller assigned to : " + gameObject.name);
         }
 
-        futurePos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        setPosition(Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementSpeed));
+        transform.position = Vector3.MoveTowards(transform.position, futurePos, Time.deltaTime * movementProfile.getMovementSpeed());
     }
 
     // Move this car
@@ -139,11 +89,13 @@ public class Car : MonoBehaviour
     public void move(bool forward)
     {
         if (forward)
-            futurePos.x += stepInterval;
+        {
+            futurePos.z += movementProfile.getStepInterval();
+        }
+            
         else
         {
-            futurePos.x -= stepInterval;
-            //futurePos.x = Mathf.Clamp(futurePos.x, originalPosition.x, 999999);
+            futurePos.z -= movementProfile.getStepInterval();
         }
     }
 
