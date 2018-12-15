@@ -80,7 +80,7 @@ public class Car : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, futurePos, Time.deltaTime * movementProfile.getMovementSpeed());
+        transform.position = Vector3.Lerp(transform.position, futurePos + transform.forward, Time.deltaTime * movementProfile.getMovementSpeed());
     }
 
     // Move this car
