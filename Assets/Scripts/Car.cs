@@ -91,7 +91,7 @@ public class Car : MonoBehaviour
 
         else
         {        
-            transform.position = Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.MovementSpeed);
+            transform.position = Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.AnimationSpeed);
         }
 
     }

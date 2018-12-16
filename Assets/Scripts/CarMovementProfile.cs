@@ -18,13 +18,13 @@ public class CarMovementProfile : ScriptableObject
     }
 
 	[SerializeField]
-	private float movementSpeed = 10;
+	private float animationSpeed = 10;
     [HideInInspector]
-    public float MovementSpeed
+    public float AnimationSpeed
     {
         get
         {
-            return movementSpeed;
+            return animationSpeed;
         }
     }
 
