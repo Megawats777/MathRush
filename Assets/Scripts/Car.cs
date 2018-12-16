@@ -2,31 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class Car : MonoBehaviour
 {
-
+    
     [SerializeField]
     private CarMovementProfile movementProfile;
-
-    private float animDuration = 0.01f;
-
+    [SerializeField]
+    private Direction direction;
+    private Transform rotationRoot;
 
     private Vector3 originalPosition;
     private Vector3 futurePos = Vector3.zero;
-    private bool crossedFinishLine = false;
 
+
+    private bool crossedFinishLine = false;
     private FinishLine finishLine;
 
 
     private ControllerBase owningController = null;
     private Car enemyCar = null;
 
-
-    // Getters and setters
-    public void setPosition(Vector3 newPosition)
-    {
-        
-    }
 
 
     public void setOwningController(ControllerBase controller)
@@ -40,10 +36,11 @@ public class Car : MonoBehaviour
         return crossedFinishLine;
     }
 
-
+    
     // Called before start
     private void Awake()
     {
+        rotationRoot = transform.Find("MeshRotationRoot");
         finishLine = FindObjectOfType<FinishLine>();
 
 
@@ -65,38 +62,100 @@ public class Car : MonoBehaviour
         originalPosition = transform.position;
         futurePos = transform.position;
 
-        if (!owningController)
+        setDisplayMeshRotation();
+
+        if (Application.isPlaying)
         {
-            Debug.LogError("No Controller assigned for car : " + gameObject.name);
+            if (!owningController)
+            {
+                Debug.LogError("No Controller assigned for car : " + gameObject.name);
+            }
+
+            else
+            {
+                Debug.Log("Controller assigned to : " + gameObject.name);
+            }
         }
 
-        else
-        {
-            Debug.Log("Controller assigned to : " + gameObject.name);
-        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, futurePos + transform.forward, Time.deltaTime * movementProfile.getMovementSpeed());
+        // EDITOR CODE
+        if (Application.isPlaying == false)
+        {
+            setDisplayMeshRotation();
+        }
+
+        else
+        {        
+            transform.position = Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.MovementSpeed);
+        }
+
     }
 
-    // Move this car
-    // forward = true : move the car forward
-    // forward = false : move the car backwards
-    public void move(bool forward)
+    // Clamp position variables
+    private void clampPositionVariables(ref Vector3 vec)
     {
-        if (forward)
+        if (direction == Direction.Forward)
         {
-            futurePos.z += movementProfile.getStepInterval();
+            vec.z = Mathf.Clamp(vec.z, originalPosition.z - movementProfile.StepInterval, 99999);
         }
-            
+
         else
         {
-            futurePos.z -= movementProfile.getStepInterval();
+            vec.x = Mathf.Clamp(vec.x, originalPosition.x - movementProfile.StepInterval, 99999);
         }
+    }
+
+
+    // Move this car
+    // advance = true : Advance the car through the level
+    // advance = false : Reverse the car's progression through the level
+    public void move(bool advance)
+    {
+        if (advance)
+        {
+            if (direction == Direction.Forward)
+            {
+                futurePos.z += movementProfile.StepInterval;
+            }
+
+            else
+            {
+                futurePos.x += movementProfile.StepInterval;
+            }
+        }
+
+        else
+        {
+            if (direction == Direction.Forward)
+            {
+                futurePos.z -= movementProfile.StepInterval;
+            }
+
+            else
+            {
+                futurePos.x -= movementProfile.StepInterval;
+            }
+        }
+
+        clampPositionVariables(ref futurePos);
+    }
+
+
+    // Set rotation of display mesh
+    private void setDisplayMeshRotation()
+    {
+        rotationRoot.localPosition = Vector3.zero;
+        rotationRoot.localScale = Vector3.one;
+
+        if (direction == Direction.Right)
+            rotationRoot.eulerAngles = new Vector3(0, 90, 0);
+        else
+            rotationRoot.eulerAngles = Vector3.zero;
     }
 
 

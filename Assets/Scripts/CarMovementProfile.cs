@@ -8,20 +8,24 @@ public class CarMovementProfile : ScriptableObject
 	// Variables
 	[SerializeField]
 	private float stepInterval = 3;
+    [HideInInspector]
+    public float StepInterval
+    {
+        get
+        {
+            return stepInterval;
+        }
+    }
 
 	[SerializeField]
 	private float movementSpeed = 10;
-
-
-	// Getters
-	public float getStepInterval()
-	{
-		return stepInterval;
-	}
-
-	public float getMovementSpeed()
-	{
-		return movementSpeed;
-	}
+    [HideInInspector]
+    public float MovementSpeed
+    {
+        get
+        {
+            return movementSpeed;
+        }
+    }
 
 }
