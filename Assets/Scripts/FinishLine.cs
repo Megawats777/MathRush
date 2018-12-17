@@ -48,9 +48,7 @@ public class FinishLine : MonoBehaviour
         {
             bool player1WinStatus = false;
             Car c = other.GetComponent<Car>();
-
-            // Flag the overlapping car
-            // as one that crossed the finish line
+            
             c.crossedFinishLine = true;
 
             // When the Player's car has entered the trigger
