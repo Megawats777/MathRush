@@ -8,3 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestLevel.unity
     guid: 4cc916d6c5640f141aa5568f57621409
+  m_configObjects: {}
