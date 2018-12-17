@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [ExecuteAlways]
 public class Car : MonoBehaviour
@@ -43,6 +44,7 @@ public class Car : MonoBehaviour
         set;
     }
 
+    private Text positionText;
     private Rigidbody rb;
 
 
@@ -53,6 +55,7 @@ public class Car : MonoBehaviour
 
         rotationRoot = transform.Find("MeshRotationRoot");
         finishLine = FindObjectOfType<FinishLine>();
+        positionText = GameObject.FindGameObjectWithTag("PositionText").GetComponent<Text>();
 
 
         // Get the enemy car 
@@ -106,6 +109,40 @@ public class Car : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.AnimationSpeed));
+
+        // If the owning controller of this car has an ID of 1
+        if (OwningController.getPlayerId() == 1)
+        {
+            // Update the position text depending if the this car is ahead of the enemy car
+            if (direction == Direction.Forward)
+            {
+                comparePositions(transform.position.z, EnemyCar.transform.position.z);
+            }
+
+            else
+            {
+                comparePositions(transform.position.x, EnemyCar.transform.position.x);
+            }
+        }
+
+    }
+
+    // Compare positions
+    private void comparePositions(float currentCarPos, float enemyCarPos)
+    {
+        if (positionText)
+        {
+            if (currentCarPos > enemyCarPos)
+            {
+                positionText.text = "1 / 2";
+            }
+
+            else
+            {
+                positionText.text = " 2 / 2";
+            }
+        }
+
     }
 
     // Clamp position variables

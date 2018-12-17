@@ -10,6 +10,7 @@ TagManager:
   - EnemyCar
   - Button-Correct
   - Button-Incorrect
+  - PositionText
   layers:
   - Default
   - TransparentFX

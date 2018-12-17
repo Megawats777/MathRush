@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 3933013511670693252}
   m_Layer: 0
   m_Name: PositionText
-  m_TagString: Untagged
+  m_TagString: PositionText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
