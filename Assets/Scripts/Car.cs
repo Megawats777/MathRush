@@ -16,20 +16,34 @@ public class Car : MonoBehaviour
     private Vector3 futurePos = Vector3.zero;
 
 
-    private bool crossedFinishLine = false;
+    [HideInInspector]
+    public bool crossedFinishLine = false;
     private FinishLine finishLine;
 
 
     private ControllerBase owningController = null;
-    private Car enemyCar = null;
+    [HideInInspector]
+    public ControllerBase OwningController
+    {
+        get
+        {
+            return owningController;
+        }
+
+        set
+        {
+            owningController = value;
+        }
+    }
+
+    [HideInInspector]
+    public Car EnemyCar
+    {
+        get;
+        set;
+    }
 
     private Rigidbody rb;
-
-
-    public void setOwningController(ControllerBase controller)
-    {
-        owningController = controller;
-    }
 
 
     // Called before start
@@ -48,9 +62,10 @@ public class Car : MonoBehaviour
             {
                 // If the current car in the list does not have the same tag
                 // as this car then mark it as the enemy car
-                enemyCar = c;
+                EnemyCar = c;
             }
         }
+
     }
 
     // Use this for initialization

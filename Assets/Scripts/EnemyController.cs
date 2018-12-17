@@ -19,7 +19,7 @@ public class EnemyController : ControllerBase
     private void Awake()
     {
         controlledCar = GameObject.FindGameObjectWithTag("EnemyCar").GetComponent<Car>();
-        controlledCar.setOwningController(this);
+        controlledCar.OwningController = this;
     }
 
 

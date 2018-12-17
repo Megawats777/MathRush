@@ -34,7 +34,7 @@ public class PlayerController : ControllerBase
         questionManager = FindObjectOfType<QuestionManager>();
 
         controlledCar = GameObject.FindGameObjectWithTag("PlayerCar").GetComponent<Car>();
-        controlledCar.setOwningController(this);
+        controlledCar.OwningController = this;
 
 
         buttonCorrect = GameObject.FindGameObjectWithTag("Button-Correct").GetComponent<Button>();
