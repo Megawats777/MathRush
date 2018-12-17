@@ -5,7 +5,7 @@ using UnityEngine;
 [ExecuteAlways]
 public class Car : MonoBehaviour
 {
-    
+
     [SerializeField]
     private CarMovementProfile movementProfile;
     [SerializeField]
@@ -23,6 +23,7 @@ public class Car : MonoBehaviour
     private ControllerBase owningController = null;
     private Car enemyCar = null;
 
+    private Rigidbody rb;
 
 
     public void setOwningController(ControllerBase controller)
@@ -31,15 +32,11 @@ public class Car : MonoBehaviour
     }
 
 
-    public bool getHasCrossedFinishLine()
-    {
-        return crossedFinishLine;
-    }
-
-    
     // Called before start
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+
         rotationRoot = transform.Find("MeshRotationRoot");
         finishLine = FindObjectOfType<FinishLine>();
 
@@ -88,12 +85,12 @@ public class Car : MonoBehaviour
         {
             setDisplayMeshRotation();
         }
+    }
 
-        else
-        {        
-            transform.position = Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.AnimationSpeed);
-        }
-
+    // Called before physics update
+    private void FixedUpdate()
+    {
+        rb.MovePosition(Vector3.Lerp(transform.position, futurePos, Time.deltaTime * movementProfile.AnimationSpeed));
     }
 
     // Clamp position variables
