@@ -115,14 +115,11 @@ public class Car : MonoBehaviour
         {
             // Update the position text depending if the this car is ahead of the enemy car
             if (direction == Direction.Forward)
-            {
                 comparePositions(transform.position.z, EnemyCar.transform.position.z);
-            }
-
+            
             else
-            {
                 comparePositions(transform.position.x, EnemyCar.transform.position.x);
-            }
+            
         }
 
     }
@@ -133,14 +130,10 @@ public class Car : MonoBehaviour
         if (positionText)
         {
             if (currentCarPos > enemyCarPos)
-            {
                 positionText.text = "1 / 2";
-            }
-
+            
             else
-            {
                 positionText.text = " 2 / 2";
-            }
         }
 
     }
@@ -149,46 +142,37 @@ public class Car : MonoBehaviour
     private void clampPositionVariables(ref Vector3 vec)
     {
         if (direction == Direction.Forward)
-        {
             vec.z = Mathf.Clamp(vec.z, originalPosition.z - movementProfile.StepInterval, 99999);
-        }
-
+        
         else
-        {
             vec.x = Mathf.Clamp(vec.x, originalPosition.x - movementProfile.StepInterval, 99999);
-        }
+        
     }
 
 
     // Move this car
     // advance = true : Advance the car through the level
     // advance = false : Reverse the car's progression through the level
-    public void move(bool advance)
+    public void move(bool advancing)
     {
-        if (advance)
+        if (advancing)
         {
             if (direction == Direction.Forward)
-            {
                 futurePos.z += movementProfile.StepInterval;
-            }
 
             else
-            {
                 futurePos.x += movementProfile.StepInterval;
-            }
+                
         }
 
         else
         {
             if (direction == Direction.Forward)
-            {
                 futurePos.z -= movementProfile.StepInterval;
-            }
-
+            
             else
-            {
                 futurePos.x -= movementProfile.StepInterval;
-            }
+            
         }
 
         clampPositionVariables(ref futurePos);
