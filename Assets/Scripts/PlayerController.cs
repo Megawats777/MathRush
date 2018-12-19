@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerController : ControllerBase
 {
     // InputEnabled field and property
-    private bool inputEnabled = true;
+    private bool inputEnabled = false;
     public bool InputEnabled
     {
         get

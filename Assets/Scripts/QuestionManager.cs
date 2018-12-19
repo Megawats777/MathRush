@@ -30,7 +30,7 @@ public class QuestionManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        selectQuestion();
+        
     }
 
     // Update is called once per frame

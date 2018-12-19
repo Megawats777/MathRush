@@ -6,7 +6,7 @@ public class GameplayUi : MonoBehaviour, IGameHud
 {
     private void Start()
     {
-        show();   
+        hide();   
     }
 
     public void hide()

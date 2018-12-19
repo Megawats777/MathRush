@@ -26,7 +26,7 @@ public class EnemyController : ControllerBase
     // Use this for initialization
     void Start()
     {
-        startMovingAssignedCar();
+        
     }
 
     // Update is called once per frame
